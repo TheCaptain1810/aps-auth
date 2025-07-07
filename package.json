@@ -1,0 +1,23 @@
+{
+  "name": "aps-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@aps_sdk/authentication": "^1.0.0",
+    "@aps_sdk/data-management": "^1.1.2",
+    "cookie-session": "^2.1.0",
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
