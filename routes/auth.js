@@ -1,11 +1,12 @@
-const express = require("express");
-const router = express.Router();
-const {
+import express from "express";
+import {
   getAuthorizationUrl,
   authCallbackMiddleware,
   authRefreshMiddleware,
   getUserProfile,
-} = require("../services/aps");
+} from "../services/aps";
+
+const router = express.Router();
 
 router.get("/api/auth/login", (req, res) => {
   res.redirect(getAuthorizationUrl());
@@ -39,4 +40,4 @@ router.get(
   }
 );
 
-module.exports = router;
+export default router;

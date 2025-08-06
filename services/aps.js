@@ -1,8 +1,8 @@
-const {
+import {
   AuthenticationClient,
   ResponseType,
   Scopes,
-} = require("@aps_sdk/authentication");
+} from "@aps_sdk/authentication";
 
 const { APS_CLIENT_ID, APS_CLIENT_SECRET, APS_REDIRECT_URI } = process.env;
 const INTERNAL_TOKEN_SCOPES = [Scopes.DataRead, Scopes.ViewablesRead];
@@ -10,9 +10,7 @@ const PUBLIC_TOKEN_SCOPES = [Scopes.ViewablesRead];
 
 const authenticationClient = new AuthenticationClient();
 
-const service = (module.exports = {});
-
-service.getAuthorizationUrl = () => {
+const getAuthorizationUrl = () => {
   return authenticationClient.authorize(
     APS_CLIENT_ID,
     ResponseType.Code,
@@ -21,7 +19,7 @@ service.getAuthorizationUrl = () => {
   );
 };
 
-service.authCallbackMiddleware = async (req, res, next) => {
+const authCallbackMiddleware = async (req, res, next) => {
   const internalCredentials = await authenticationClient.getThreeLeggedToken(
     APS_CLIENT_ID,
     req.query.code,
@@ -42,7 +40,7 @@ service.authCallbackMiddleware = async (req, res, next) => {
   next();
 };
 
-service.authRefreshMiddleware = async (req, res, next) => {
+const authRefreshMiddleware = async (req, res, next) => {
   const { refresh_token, expires_at } = req.session;
   if (!refresh_token) {
     res.status(401).end();
@@ -80,7 +78,14 @@ service.authRefreshMiddleware = async (req, res, next) => {
   next();
 };
 
-service.getUserProfile = async (accessToken) => {
+const getUserProfile = async (accessToken) => {
   const response = await authenticationClient.getUserInfo(accessToken);
   return response;
+};
+
+export {
+  getAuthorizationUrl,
+  authCallbackMiddleware,
+  authRefreshMiddleware,
+  getUserProfile,
 };

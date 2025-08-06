@@ -1,9 +1,9 @@
-const express = require("express");
-const session = require("cookie-session");
-const dotenv = require("dotenv");
+import express from "express";
+import session from "cookie-session";
+import dotenv from "dotenv";
 dotenv.config();
 
-const { PORT, SERVER_SESSION_SECRET } = process.env;
+const { SERVER_SESSION_SECRET } = process.env;
 
 const app = express();
 
@@ -19,4 +19,4 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Express server!");
 });
 
-module.exports = app;
+export default app;
